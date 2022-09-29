@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Login: React.FC = () => {
+    const handleSubmit = (): void => {
+
+    }
+
     return (
         <div className="card-body p-5 text-center">
 
@@ -17,7 +21,7 @@ const Login: React.FC = () => {
                 <div className="form-outline form-white mb-4">
                     <input type="password" id="typePasswordX" placeholder='Password' className="form-control form-control-lg bg-transparent" style={{color: 'white'}}/>
                 </div>
-                <button className="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                <button className="btn btn-outline-light btn-lg px-5" type="submit" onClick={handleSubmit}>Sign in</button>
 
             </div>
 
