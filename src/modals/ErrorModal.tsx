@@ -10,7 +10,7 @@ interface ErrorProps {
 
 
 const ErrorModal: React.FC<ErrorProps> = (props) => {
-  const [show, setShow] = useState<boolean>(true);
+  const [show, setShow] = useState<boolean>(props.show);
 
   const handleClose = () => setShow(false);
 
