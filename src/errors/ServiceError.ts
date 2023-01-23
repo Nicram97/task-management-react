@@ -3,7 +3,7 @@ export class ServiceError extends Error {
     cause?: Error | string;
     errorMessage: string;
 
-    constructor(message: string, code: number, cause: Error | string) {
+    constructor(code: number, message: string, cause: Error | string) {
         super(`Task management have failed ${message}, ${code}`);
         this.code = code;
         this.errorMessage = message;
