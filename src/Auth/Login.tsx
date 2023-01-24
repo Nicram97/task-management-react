@@ -12,8 +12,8 @@ const Login: React.FC = () => {
                 <p className="text-white-50 mb-5">Please enter your login and password!</p>
                 <div className="form-outline form-white mb-4">
                     <input
-                        type="email"
-                        id="typeEmailX"
+                        type="text"
+                        id="username"
                         placeholder='Username'
                         className="form-control form-control-lg bg-transparent"
                         style={{color: 'white'}}
@@ -32,7 +32,13 @@ const Login: React.FC = () => {
                 </button>
             </div>
             <div>
-                <p className="mb-0">Don't have an account? <Link to={'/sign-up'} className="text-white-50 fw-bold">Sign Up</Link>
+                <p className="mb-0">
+                    Don't have an account? 
+                    <Link
+                        to={'/sign-up'} 
+                        className="text-white-50 fw-bold">
+                        Sign Up
+                    </Link>
                 </p>
             </div>
         </div>
