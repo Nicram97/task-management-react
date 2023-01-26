@@ -52,7 +52,7 @@ export const useAuthService = (): UseAuthApi => {
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${res.data.accessToken}`;
     } catch (err: unknown | AxiosError) {
       if (axios.isAxiosError(err)) {
-        throw new ServiceError(ERROR_CODE.AUTH_SERVICE_ERROR,`Logging failed, ${err.message}`, err.cause);
+        throw new ServiceError(ERROR_CODE.AUTH_SERVICE_ERROR,`Registration failed, ${err.message}`, err.cause);
       }
       console.log('Unexpected error', err);
     }
