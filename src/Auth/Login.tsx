@@ -1,24 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ServiceError } from '../errors/ServiceError';
-import { useAuthService } from '../hooks/useAuthApi';
+import { AuthContextType, useAuthContext } from '../context/authContext';
 import LoginValidationAlert from './LoginValidationAlert';
 const Login: React.FC = () => {
-    const { login } = useAuthService();
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [error, setError] = useState<ServiceError>();
+    const { authError, handleSignIn: handleLogin } = useAuthContext() as AuthContextType;
+
 
     const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
         event.preventDefault();
-
-        try {
-            await login(username, password);
-            setError(undefined);
-            console.log('successful login!');
-        } catch (e) {
-            setError(e as ServiceError);
-        }
+        handleLogin(username, password);
     };
 
     const handleUsername = (event: React.FocusEvent<HTMLInputElement>): void => {
@@ -34,7 +26,7 @@ const Login: React.FC = () => {
             <div className="mb-md-3 mt-md-3 pb-3">
                 <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
                 <p className="text-white-50 mb-5">Please enter your login and password!</p>
-                {typeof error !== "undefined" && <LoginValidationAlert {...error}/>}
+                {typeof authError !== "undefined" && <LoginValidationAlert {...authError}/>}
                 <div className="form-outline form-white mb-4">
                     <input
                         type="text"
