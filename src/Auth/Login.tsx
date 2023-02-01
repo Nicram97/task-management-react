@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContextType, useAuthContext } from '../context/authContext';
-import LoginValidationAlert from './LoginValidationAlert';
+import AuthValidationAlert from './AuthValidationAlert';
 const Login: React.FC = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const { authError, handleSignIn: handleLogin } = useAuthContext() as AuthContextType;
+    const { signInError, handleSignIn } = useAuthContext() as AuthContextType;
 
 
     const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
         event.preventDefault();
-        handleLogin(username, password);
+        handleSignIn(username, password);
     };
 
     const handleUsername = (event: React.FocusEvent<HTMLInputElement>): void => {
@@ -26,7 +26,7 @@ const Login: React.FC = () => {
             <div className="mb-md-3 mt-md-3 pb-3">
                 <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
                 <p className="text-white-50 mb-5">Please enter your login and password!</p>
-                {typeof authError !== "undefined" && <LoginValidationAlert {...authError}/>}
+                {typeof signInError !== "undefined" && <AuthValidationAlert {...signInError}/>}
                 <div className="form-outline form-white mb-4">
                     <input
                         type="text"

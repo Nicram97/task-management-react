@@ -2,17 +2,22 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { authSchema } from "../utils/schemas/auth.schema";
 import { reach, ValidationError } from 'yup';
+import { AuthContextType, useAuthContext } from "../context/authContext";
+import AuthValidationAlert from "./AuthValidationAlert";
 
 const Register: React.FC = () => {
     const [isUserNameValid, setIsUsernameValid] =  useState<boolean>(false);
     const [usernameError, setUsernameError] = useState<string>('');
     const [isPasswordValid, setIsPasswordValid] =  useState<boolean>(false);
     const [passwordError, setPasswordError] = useState<string>('');
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
     const isFormValid = isUserNameValid && isPasswordValid;
+    const { handleSignUp, signUpError } = useAuthContext() as AuthContextType;
 
-    const handleSubmit = (event: React.SyntheticEvent): void => {
+    const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
         event.preventDefault();
-        
+        await handleSignUp(username, password)
     };
 
     const validateUsername = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
@@ -22,6 +27,7 @@ const Register: React.FC = () => {
             const subSchema = reach(authSchema, 'username');
             await subSchema.validate(event.target.value);
             setIsUsernameValid(true);
+            setUsername(event.target.value);
         } catch (e) {
             console.error(e);
             if (e instanceof ValidationError) {
@@ -38,6 +44,7 @@ const Register: React.FC = () => {
             const subSchema = reach(authSchema, 'password');
             await subSchema.validate(event.target.value);
             setIsPasswordValid(true);
+            setPassword(event.target.value);
         } catch (e) {
             console.error(e);
             if (e instanceof ValidationError) {
@@ -55,6 +62,7 @@ const Register: React.FC = () => {
                 <p className="text-white-50 mb-5">
                     To create an account, please enter your login and password!
                 </p>
+                {typeof signUpError !== "undefined" && <AuthValidationAlert {...signUpError}/>}
                 <div className="container mb-4">
                     <div className="form-outline form-white mb-0">
                         <input

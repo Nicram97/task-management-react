@@ -1,7 +1,7 @@
 import { ServiceError } from "../errors/ServiceError";
 import { ERROR_CODE } from "../utils/constants";
 
-const LoginValidationAlert: React.FC<ServiceError> = ({code, cause, errorMessage}) => {
+const AuthValidationAlert: React.FC<ServiceError> = ({code, cause, errorMessage}) => {
     return (
         <div className="alert alert-danger" role="alert">
             <h5 className="alert-heading">Error {ERROR_CODE[code]} {typeof cause === 'string' ? cause : null}</h5>
@@ -12,4 +12,4 @@ const LoginValidationAlert: React.FC<ServiceError> = ({code, cause, errorMessage
     );
 }
 
-export default LoginValidationAlert;
+export default AuthValidationAlert;
