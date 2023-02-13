@@ -14,33 +14,30 @@ const TasksList: React.FC = () => {
                                         alt="Check" width="60" />
                                     <h2 className="my-2">Task List</h2>
                                 </div>
-                                <div className="card-body"
-                                    data-mdb-perfect-scrollbar={true}
+                                <div className="card-body overflow-auto"
                                     style={{position: 'relative', maxHeight: '400px'}}>
-                                    <div className="table-responsive">
-                                        <table className="table text-white mb-0">
-                                            <thead>
-                                                <tr>
-                                                <th className="text-center" scope="col">Title</th>
-                                                <th className="text-center" scope="col">Description</th>
-                                                <th className="text-center" scope="col">Status</th>
-                                                <th className="text-center" scope="col">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <TaskElement title='awdawdawdawdawdawdawdawdawdawd' description='awdawdawdawdawdawdawdawdawdawdawdawdawdawdawd' status={TaskStatus.OPEN}/>
-                                                <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                                <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                                <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                                <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                                <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                                <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                                <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                                <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                                <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    <table className="table text-white mb-0">
+                                        <thead>
+                                            <tr>
+                                            <th className="text-center" scope="col">Title</th>
+                                            <th className="text-center" scope="col">Description</th>
+                                            <th className="text-center" scope="col">Status</th>
+                                            <th className="text-center" scope="col">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <TaskElement title='awdawdawdawdawdawdawdawdawdawd' description='awdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawd' status={TaskStatus.OPEN}/>
+                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
+                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
+                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
+                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
+                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
+                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
+                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
+                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
+                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
