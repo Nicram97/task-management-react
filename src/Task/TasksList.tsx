@@ -1,6 +1,7 @@
 import { TaskStatus } from './interfaces/TaskProperties';
 import TaskElement from './TaskElement';
 import './TasksList.css'
+
 const TasksList: React.FC = () => {
     return (
         <section>
@@ -11,8 +12,25 @@ const TasksList: React.FC = () => {
                             <div className="card-body p-4 text-white">
                                 <div className="text-center pt-3 pb-2">
                                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"
-                                        alt="Check" width="60" />
+                                        alt="Check" width="60px" />
                                     <h2 className="my-2">Task List</h2>
+                                </div>
+                                <div className="d-flex justify-content-between">
+                                    <div className="justify-content-md-start mb-1">
+                                        <button type="button" className="btn btn-danger">Add Task</button>
+                                    </div>
+                                    <div className="d-flex justify-content-md-end mb-1">
+                                        <button type="button" className="btn btn-danger">Search</button>
+                                        <div className="input-group">
+                                            <input type="text" className="form-control" placeholder="Title/Description" aria-label="Username" aria-describedby="basic-addon1" />
+                                        </div>
+                                        <div className="col-sm-5">
+                                            <select className="form-select" aria-label="Default select example">
+                                                <option defaultValue={'Status'}>Status</option>
+                                                {Object.keys(TaskStatus).map(status => <option key={status} value={status}>{status}</option>)}
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="card-body overflow-auto"
                                     style={{position: 'relative', maxHeight: '400px'}}>
@@ -26,16 +44,6 @@ const TasksList: React.FC = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <TaskElement title='awdawdawdawdawdawdawdawdawdawd' description='awdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawdawd' status={TaskStatus.OPEN}/>
-                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
-                                            <TaskElement title='awdawdawdawdawd' description='awdawdafsegsegseg' status={TaskStatus.OPEN}/>
                                         </tbody>
                                     </table>
                                 </div>

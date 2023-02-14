@@ -5,18 +5,18 @@ import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 const TaskElement: React.FC<TaskProperties> = ({title, description, status}) => {
     return (
         <tr className="fw-normal">
-            <th>
+            <th style={{minWidth: '150px'}}>
                 <span className="ms-2 text-wrap text-break text-center">{title}</span>
             </th>
-            <td className="align-middle text-wrap">
+            <td className="align-middle text-wrap" style={{maxWidth: '50%'}}>
                 <span className="text-wrap text-break text-center">{description}</span>
             </td>
-            <td className="align-middle">
-                <h6 className="mb-0">
-                    <span className="badge bg-danger text-center">{status}</span>
-                </h6>
+            <td className="align-middle" style={{minWidth: '100px'}}>
+                <h4 className="mb-0 text-center">
+                    <span className="badge bg-secondary text-center">{status}</span>
+                </h4>
             </td>
-            <td className="align-middle">
+            <td className="align-middle" style={{minWidth: '75px'}}>
                 <div className="text-center" title="edit" style={{float: 'left', width:'50%'}}>
                     <FontAwesomeIcon icon={faPenToSquare} size="lg"/>
                 </div>
