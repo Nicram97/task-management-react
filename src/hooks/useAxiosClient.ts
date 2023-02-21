@@ -7,7 +7,8 @@ import { ApiClient } from '../utils/ApiClient';
  */
 interface UseAxiosClient {
   post<T = any>(url: string, data?: any): Promise<AxiosResponse<T>>;
-  get<T = any>(url: string): Promise<AxiosResponse<T>>;
+  get<T = any>(url: string, params?: any): Promise<AxiosResponse<T>>;
+  del<T = any>(url: string): Promise<AxiosResponse<T>>;
   axiosInstance: AxiosInstance;
 }
 
@@ -23,13 +24,29 @@ export const useApiClient = (): UseAxiosClient => {
     },
   });
 
-  const get = <T = any>(url: string): Promise<AxiosResponse<T>> => axiosClient.request({
+  const del = <T = any>(url: string): Promise<AxiosResponse<T>> => axiosClient.request({
     url,
-    method: 'get',
+    method: 'delete',
     headers: {
       ContentType: 'application/json',
     },
   });
 
-  return { axiosInstance: axiosClient.getAxiosInstance(), get, post };
+  const get = <T = any>(url: string, params?: any): Promise<AxiosResponse<T>> => axiosClient.request({
+    url,
+    method: 'get',
+    headers: {
+      ContentType: 'application/json',
+    },
+    params,
+    paramsSerializer: {
+      serialize: (params: any) => {
+      return Object.entries(Object.assign({}, params))
+      .map(([key, value]) => `${key}=${value}`)
+      .join('&');
+    }
+    },
+  });
+
+  return { axiosInstance: axiosClient.getAxiosInstance(), get, post, del };
 };

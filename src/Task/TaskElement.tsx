@@ -1,8 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TaskProperties } from "./interfaces/TaskProperties";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { TaskContextType, useTaskContext } from "../context/taskContext";
 
-const TaskElement: React.FC<TaskProperties> = ({title, description, status}) => {
+const TaskElement: React.FC<TaskProperties> = ({id, title, description, status}) => {
+    const { handleDeleteTask } = useTaskContext() as TaskContextType;
+
     return (
         <tr className="fw-normal">
             <th style={{minWidth: '150px'}}>
@@ -21,7 +24,7 @@ const TaskElement: React.FC<TaskProperties> = ({title, description, status}) => 
                     <FontAwesomeIcon icon={faPenToSquare} size="lg"/>
                 </div>
                 <div className="text-center" title="delete" style={{float: 'left', width: '50%'}}>
-                    <FontAwesomeIcon icon={faTrashCan} size="lg"/>
+                    <FontAwesomeIcon icon={faTrashCan} size="lg" onClick={() => handleDeleteTask(id)}/>
                 </div>
             </td>
         </tr>

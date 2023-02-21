@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from './context/authContext';
 import { BrowserRouter } from 'react-router-dom';
+import { TaskProvider } from './context/taskContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,7 +15,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <TaskProvider>
+          <App />
+        </TaskProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

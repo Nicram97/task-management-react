@@ -12,8 +12,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Auth><Login/></Auth>} />
           <Route path="/sign-in" element={<Auth><Login/></Auth>} />
           <Route path="/sign-up" element={<Auth><Register/></Auth>} />
-          {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
   );
