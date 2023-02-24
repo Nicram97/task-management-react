@@ -2,9 +2,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TaskProperties, TaskStatus } from "./interfaces/TaskProperties";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { TaskContextType, useTaskContext } from "../context/taskContext";
+import { useNavigate } from "react-router-dom";
 
 const TaskElement: React.FC<TaskProperties> = ({id, title, description, status}) => {
     const { handleDeleteTask } = useTaskContext() as TaskContextType;
+    const navigate = useNavigate();
     let badgeClassColor;
 
     switch (status) {
@@ -21,10 +23,10 @@ const TaskElement: React.FC<TaskProperties> = ({id, title, description, status})
         }
     }
     return (
-        <tr className="fw-normal">
-            <th className="text-center" style={{minWidth: '150px'}}>
+        <tr className="fw-normal" onClick={() => navigate(id)}>
+            <td className="text-center" style={{minWidth: '150px'}}>
                 <span className="text-wrap text-break text-center">{title}</span>
-            </th>
+            </td>
             <td className="align-middle text-wrap text-center" style={{maxWidth: '50%'}}>
                 <span className="text-wrap text-break text-center">{description}</span>
             </td>

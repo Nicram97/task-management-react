@@ -36,20 +36,22 @@ const TasksList: React.FC = () => {
                                     <table className="table text-white mb-0">
                                         <thead>
                                             <tr>
-                                            <th className="text-center" scope="col">Title</th>
-                                            <th className="text-center" scope="col">Description</th>
-                                            <th className="text-center" scope="col">Status</th>
-                                            <th className="text-center" scope="col">Actions</th>
+                                                <th className="text-center" scope="col">Title</th>
+                                                <th className="text-center" scope="col">Description</th>
+                                                <th className="text-center" scope="col">Status</th>
+                                                <th className="text-center" scope="col">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                            tasks.map(task => <TaskElement
+                                            tasks.map(task => 
+                                                <TaskElement
                                                     key={task.id}
                                                     id={task.id}
                                                     title={task.title}
                                                     description={task.description}
-                                                    status={task.status}/>
+                                                    status={task.status}
+                                                />
                                                 )
                                             }
                                         </tbody>

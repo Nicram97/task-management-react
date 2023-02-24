@@ -5,6 +5,7 @@ import Register from "./Auth/Register";
 import Dashboard from "./Dashboard/Dashboard";
 import NoMatch from "./NoMatch/NoMatch";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
+import TaskElementDetails from "./Task/TaskElementDetails";
 
 const App: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const App: React.FC = () => {
           <Route path="/sign-in" element={<Auth><Login/></Auth>} />
           <Route path="/sign-up" element={<Auth><Register/></Auth>} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/dashboard/:taskId" element={<ProtectedRoute><TaskElementDetails /></ProtectedRoute>} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
   );
