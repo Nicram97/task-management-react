@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { ServiceError } from "../errors/ServiceError";
+import { CreateTaskDto } from "../hooks/interfaces/CreateTaskDto";
 import { GetTasksParameters } from "../hooks/interfaces/GetTasksParameters";
 import { useTaskApi } from "../hooks/task/useTaskApi";
 import { Task } from "../Task/interfaces/TaskEntity";
@@ -8,24 +9,36 @@ export interface TaskContextType {
     tasks: Task[];
     handleGetTasks: () => Promise<void>;
 
+    handleCreateTask: (createTaskDto: CreateTaskDto) => Promise<Task | undefined>;
+
     handleDeleteTask: (id: string) => Promise<void>;
 
-    taskError: ServiceError | undefined;
+    getTasksError: ServiceError | undefined;
+    setGetTasksError: React.Dispatch<React.SetStateAction<ServiceError | undefined>>;
+
+    deleteTaskError: ServiceError | undefined;
+    setDeleteTaskError: React.Dispatch<React.SetStateAction<ServiceError | undefined>>;
+
+    createTaskError: ServiceError | undefined;
+    setCreateTaskError: React.Dispatch<React.SetStateAction<ServiceError | undefined>>;
 }
 
 const TaskContext = React.createContext<TaskContextType | null>(null);
 
 export const TaskProvider: React.FC<React.PropsWithChildren> = ({children}) => {
-    const { getTasks, deleteTask } = useTaskApi();
+    const { getTasks, deleteTask, createTask } = useTaskApi();
     const [tasks, setTasks] = useState<Task[]>([]);
-    const [taskError, setTaskError] = useState<ServiceError>();
+    const [getTasksError, setGetTasksError] = useState<ServiceError>();
+    const [deleteTaskError, setDeleteTaskError] = useState<ServiceError>();
+    const [createTaskError, setCreateTaskError] = useState<ServiceError>();
 
     const handleGetTasks = async (params?: GetTasksParameters): Promise<void> => {
         try {
             const result = await getTasks(params);
             setTasks(result);
+            setGetTasksError(undefined);
         } catch (e) {
-            setTaskError(e as ServiceError);
+            setGetTasksError(e as ServiceError);
         }
     };
 
@@ -33,8 +46,21 @@ export const TaskProvider: React.FC<React.PropsWithChildren> = ({children}) => {
         try {
             await deleteTask(id);
             await handleGetTasks();
+            setDeleteTaskError(undefined);
         } catch (e) {
-            setTaskError(e as ServiceError);
+            setDeleteTaskError(e as ServiceError);
+        }
+    }
+
+    const handleCreateTask = async (createTaskDto: CreateTaskDto): Promise<Task | undefined> => {
+        try {
+            const createdTask = await createTask(createTaskDto);
+            await handleGetTasks();
+            setCreateTaskError(undefined);
+
+            return createdTask;
+        } catch (e) {
+            setCreateTaskError(e as ServiceError);
         }
     }
 
@@ -42,8 +68,14 @@ export const TaskProvider: React.FC<React.PropsWithChildren> = ({children}) => {
         <TaskContext.Provider value={{
             tasks,
             handleGetTasks,
+            handleCreateTask,
             handleDeleteTask,
-            taskError,
+            getTasksError,
+            setGetTasksError,
+            deleteTaskError,
+            setDeleteTaskError,
+            createTaskError,
+            setCreateTaskError
         }}>
             {children}
         </TaskContext.Provider>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContextType, useAuthContext } from '../context/authContext';
-import AuthValidationAlert from './AuthValidationAlert';
+import Alert from '../errors/Alert/Alert';
 const Login: React.FC = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -26,7 +26,7 @@ const Login: React.FC = () => {
             <div className="mb-md-3 mt-md-3 pb-3">
                 <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
                 <p className="text-white-50 mb-5">Please enter your login and password!</p>
-                {typeof signInError !== "undefined" && <AuthValidationAlert {...signInError}/>}
+                {typeof signInError !== "undefined" && <Alert {...signInError}/>}
                 <div className="form-outline form-white mb-4">
                     <input
                         type="text"

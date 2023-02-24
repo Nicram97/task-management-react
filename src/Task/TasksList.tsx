@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { TaskContextType, useTaskContext } from '../context/taskContext';
+import ErrorModal from '../errors/Modal/ErrorModal';
 import TaskElement from './TaskElement';
 import TaskManageBar from './TaskManageBar';
 import './TasksList.css'
 
 const TasksList: React.FC = () => {
-    const { handleGetTasks, tasks } = useTaskContext() as TaskContextType;
+    const { handleGetTasks, tasks, getTasksError, deleteTaskError } = useTaskContext() as TaskContextType;
 
     useEffect(() => {
         const getAllTasks = async () => {
@@ -17,6 +18,8 @@ const TasksList: React.FC = () => {
 
     return (
         <section>
+            {typeof getTasksError !== "undefined" && <ErrorModal {...getTasksError}/>}
+            {typeof deleteTaskError !== "undefined" && <ErrorModal {...deleteTaskError}/>}
             <div className="container py-5">
                 <div className="row d-flex justify-content-center">
                     <div className="col-md-12 col-xl-10">

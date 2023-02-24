@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { authSchema } from "../utils/schemas/auth.schema";
 import { reach, ValidationError } from 'yup';
 import { AuthContextType, useAuthContext } from "../context/authContext";
-import AuthValidationAlert from "./AuthValidationAlert";
+import Alert from "../errors/Alert/Alert";
 
 const Register: React.FC = () => {
     const [isUserNameValid, setIsUsernameValid] =  useState<boolean>(false);
@@ -62,7 +62,7 @@ const Register: React.FC = () => {
                 <p className="text-white-50 mb-5">
                     To create an account, please enter your login and password!
                 </p>
-                {typeof signUpError !== "undefined" && <AuthValidationAlert {...signUpError}/>}
+                {typeof signUpError !== "undefined" && <Alert {...signUpError}/>}
                 <div className="container mb-4">
                     <div className="form-outline form-white mb-0">
                         <input
