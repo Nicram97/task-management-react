@@ -9,7 +9,7 @@ import { useApiClient } from "../useAxiosClient";
 
 interface UseTasksApi {
     getTasks(params?: GetTasksParameters): Promise<Task[]>;
-    getTaskById(id: string): Promise<void>;
+    getTaskById(id: string): Promise<Task>;
     updateTaskStatus(): Promise<void>;
     deleteTask(id: string): Promise<void>;
     createTask(createTaskDto: CreateTaskDto): Promise<Task>;
@@ -34,9 +34,10 @@ interface UseTasksApi {
       }
     };
 
-    const getTaskById = async (id: string): Promise<void> => {
+    const getTaskById = async (id: string): Promise<Task> => {
         try {
-          console.log('elo');
+          const result = await get(`${TASKS_API}/${id}`);
+          return result.data as Task;
         } catch (err: unknown | AxiosError) {
           if (axios.isAxiosError(err)) {
             throw new ServiceError(ERROR_CODE.TASKS_SERVICE_ERROR,`Getting task by id failed, ${err.message}`, err.response?.data.message);

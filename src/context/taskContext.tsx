@@ -13,6 +13,8 @@ export interface TaskContextType {
 
     handleDeleteTask: (id: string) => Promise<void>;
 
+    handleGetTaskById: (id: string) => Promise<Task | undefined>;
+
     getTasksError: ServiceError | undefined;
     setGetTasksError: React.Dispatch<React.SetStateAction<ServiceError | undefined>>;
 
@@ -21,16 +23,20 @@ export interface TaskContextType {
 
     createTaskError: ServiceError | undefined;
     setCreateTaskError: React.Dispatch<React.SetStateAction<ServiceError | undefined>>;
+
+    getTaskByIdError: ServiceError | undefined;
+    setGetTaskByIdError: React.Dispatch<React.SetStateAction<ServiceError | undefined>>;
 }
 
 const TaskContext = React.createContext<TaskContextType | null>(null);
 
 export const TaskProvider: React.FC<React.PropsWithChildren> = ({children}) => {
-    const { getTasks, deleteTask, createTask } = useTaskApi();
+    const { getTasks, deleteTask, createTask, getTaskById } = useTaskApi();
     const [tasks, setTasks] = useState<Task[]>([]);
     const [getTasksError, setGetTasksError] = useState<ServiceError>();
     const [deleteTaskError, setDeleteTaskError] = useState<ServiceError>();
     const [createTaskError, setCreateTaskError] = useState<ServiceError>();
+    const [getTaskByIdError, setGetTaskByIdError] = useState<ServiceError>();
 
     const handleGetTasks = async (params?: GetTasksParameters): Promise<void> => {
         try {
@@ -64,6 +70,17 @@ export const TaskProvider: React.FC<React.PropsWithChildren> = ({children}) => {
         }
     }
 
+    const handleGetTaskById = async (id: string): Promise<Task | undefined> => {
+        try {
+            const getTask = await getTaskById(id);
+            setGetTaskByIdError(undefined);
+
+            return getTask;
+        } catch (e) {
+            setGetTaskByIdError(e as ServiceError);
+        }
+    }
+
     return (
         <TaskContext.Provider value={{
             tasks,
@@ -75,7 +92,10 @@ export const TaskProvider: React.FC<React.PropsWithChildren> = ({children}) => {
             deleteTaskError,
             setDeleteTaskError,
             createTaskError,
-            setCreateTaskError
+            setCreateTaskError,
+            getTaskByIdError,
+            setGetTaskByIdError,
+            handleGetTaskById,
         }}>
             {children}
         </TaskContext.Provider>
