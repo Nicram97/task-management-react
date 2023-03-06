@@ -4,6 +4,12 @@ export enum TaskStatus {
     DONE = 'DONE',
 }
 
+export enum DefaultTaskStatus {
+    STATUS = 'STATUS',
+}
+
+export type SearchTaskStatusType = DefaultTaskStatus | TaskStatus;
+
 export interface TaskProperties {
     id: string;
     title: string;

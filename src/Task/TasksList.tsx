@@ -1,12 +1,22 @@
 import { useEffect } from 'react';
 import { TaskContextType, useTaskContext } from '../context/taskContext';
 import ErrorModal from '../errors/Modal/ErrorModal';
+import EditTaskModal from './Modal/EditTaskModal';
 import TaskElement from './TaskElement';
 import TaskManageBar from './TaskManageBar';
 import './TasksList.css'
 
 const TasksList: React.FC = () => {
-    const { handleGetTasks, tasks, getTasksError, deleteTaskError } = useTaskContext() as TaskContextType;
+    const {
+        handleGetTasks,
+        tasks,
+        getTasksError,
+        deleteTaskError,
+        showEditTaskModal,
+        handleCloseEditTaskModal,
+        onUpdateTaskSubmit,
+        taskToEditId,
+    } = useTaskContext() as TaskContextType;
 
     useEffect(() => {
         const getAllTasks = async () => {
@@ -18,6 +28,7 @@ const TasksList: React.FC = () => {
 
     return (
         <>
+            <EditTaskModal id={taskToEditId} show={showEditTaskModal} handleClose={ handleCloseEditTaskModal } onSubmit={ onUpdateTaskSubmit }/>
             {typeof getTasksError !== "undefined" && <ErrorModal {...getTasksError}/>}
             {typeof deleteTaskError !== "undefined" && <ErrorModal {...deleteTaskError}/>}
             <div className="text-center pt-3 pb-2">

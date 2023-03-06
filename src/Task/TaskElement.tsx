@@ -5,9 +5,14 @@ import { TaskContextType, useTaskContext } from "../context/taskContext";
 import { useNavigate } from "react-router-dom";
 
 const TaskElement: React.FC<TaskProperties> = ({id, title, description, status}) => {
-    const { handleDeleteTask } = useTaskContext() as TaskContextType;
+    const { handleDeleteTask, handleShowEditTaskModal } = useTaskContext() as TaskContextType;
     const navigate = useNavigate();
     let badgeClassColor;
+
+    const handleDelete = async (e: React.SyntheticEvent, id: string): Promise<void> => {
+        e.stopPropagation();
+        await handleDeleteTask(id);
+    }
 
     switch (status) {
         case TaskStatus.IN_PROGRESS: {
@@ -37,10 +42,10 @@ const TaskElement: React.FC<TaskProperties> = ({id, title, description, status})
             </td>
             <td className="align-middle" style={{minWidth: '75px'}}>
                 <div className="text-center" title="edit" style={{float: 'left', width:'50%'}}>
-                    <FontAwesomeIcon icon={faPenToSquare} size="lg"/>
+                    <FontAwesomeIcon icon={faPenToSquare} size="lg" onClick={ (e) => handleShowEditTaskModal(e, id, true) }/>
                 </div>
                 <div className="text-center" title="delete" style={{float: 'left', width: '50%'}}>
-                    <FontAwesomeIcon icon={faTrashCan} size="lg" onClick={() => handleDeleteTask(id)}/>
+                    <FontAwesomeIcon icon={faTrashCan} size="lg" onClick={ (e) => handleDelete(e, id) }/>
                 </div>
             </td>
         </tr>

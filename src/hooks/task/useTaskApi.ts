@@ -1,16 +1,17 @@
 import axios, { AxiosError } from "axios";
 import { ServiceError } from "../../errors/ServiceError";
-import { TASKS_API } from "../../Routes/TasksRoutes";
+import { TASKS_API, TASK_STATUS_UPDATE_API } from "../../Routes/TasksRoutes";
 import { Task } from "../../Task/interfaces/TaskEntity";
 import { ERROR_CODE } from "../../utils/constants";
 import { CreateTaskDto } from "../interfaces/CreateTaskDto";
 import { GetTasksParameters } from "../interfaces/GetTasksParameters";
+import { UpdateTaskDto } from "../interfaces/UpdateTaskDto";
 import { useApiClient } from "../useAxiosClient";
 
 interface UseTasksApi {
     getTasks(params?: GetTasksParameters): Promise<Task[]>;
     getTaskById(id: string): Promise<Task>;
-    updateTaskStatus(): Promise<void>;
+    updateTaskStatus(id: string, data: UpdateTaskDto): Promise<Task>;
     deleteTask(id: string): Promise<void>;
     createTask(createTaskDto: CreateTaskDto): Promise<Task>;
   }
@@ -19,7 +20,7 @@ interface UseTasksApi {
    * An task service hook that exposes task available methods.
    */
   export const useTaskApi = (): UseTasksApi => {
-    const { post, get, del } = useApiClient();
+    const { post, get, del, patch } = useApiClient();
   
     const getTasks = async (params?: GetTasksParameters): Promise<Task[]> => {
       try {
@@ -47,9 +48,10 @@ interface UseTasksApi {
         }
       };
 
-      const updateTaskStatus = async (): Promise<void> => {
+      const updateTaskStatus = async (id: string, data: UpdateTaskDto): Promise<Task> => {
         try {
-          console.log('elo');
+          const result = await patch(`${TASKS_API}/${id}${TASK_STATUS_UPDATE_API}`, data);
+          return result.data as Task;
         } catch (err: unknown | AxiosError) {
           if (axios.isAxiosError(err)) {
             throw new ServiceError(ERROR_CODE.TASKS_SERVICE_ERROR,`Update task status failed, ${err.message}`, err.response?.data.message);
